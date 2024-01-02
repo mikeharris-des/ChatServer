@@ -1,0 +1,51 @@
+<!-- CHATSERVER LANDING PAGE / AUTHENTICATED USER LANDING PAGE ON LOGIN -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/clientControl.js"></script>
+        <script src="js/waitingClient.js"></script>
+        <script src="js/activeUser.js"></script>
+        <script src="js/api.js"></script>
+
+	</head>
+    <body>
+        <div class = "title">CHAT SERVER</div>
+        <div class='usernamePrompt'>Welcome to the chat {{username}}</div>
+        <div id='messages'></div>
+
+        <input type='text' placeholder='Send a message' id='msgBox'>
+        <input type='button' id="send_button" value='Send'>
+        <input type='button' id="clear_button" value='Clear Messages'>
+
+        <div class = "chatServerTips">
+            TIPS:
+
+
+            * to send a PM to one user use the following format in message box:
+
+                                                ' guest > How Are You? ' or ' guest >> How Are You? '
+
+                                                    A '>' or '>>' character indicates a private message (PM) seperator between directed username and message
+
+
+            * to send PMs to multiple users include their username's seperated by ' , ' before the PM seperator:
+
+                                                ' guest, guest2, guest3 > How Are You? ' or ' guest, guest2, guest3 >> How Are You? '
+
+
+
+            * to send a public set of GIFs to the chat server hold LCTRL+SPACE, a prompt will ask you for a GIF title input to post in chat
+
+                                                Valid input will render a set of top GIF results with that title
+
+        </div>
+
+        <input type='button' id="admin_button" value='Users'>
+    </body>
+</html>

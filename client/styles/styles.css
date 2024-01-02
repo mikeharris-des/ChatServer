@@ -1,0 +1,259 @@
+
+@media {
+  body {
+    font-family: sans-serif;
+    font-size: 1.4em;
+    padding: 15px;
+    background-color: #263a4d;
+  }
+  /* table styling is for admin page */
+  .dataTable {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: calc(100%);
+    max-width: calc(100%);
+    background-color: #EEEEEE;
+    font-size: 20px;
+    padding: 15px;
+  }
+  .dataTable th {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    font-weight: 300;
+    background-color: #c6c7cc;
+    padding: 5px;
+  }
+  .dataTable tr {
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 5px;
+  }
+  /* table column = td , uncomment break-word for full message view, is alot to view with gif data*/
+  .dataTable td {
+    white-space: pre-wrap;
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 12px;
+    max-width: 150px;
+    /* word-wrap: break-word; */
+    overflow: hidden;
+    text-overflow: clip;
+  }
+  .title {
+    width: inherit;
+    display: block;
+    padding: 15px;
+    border: 1px solid black;
+    background: #919090;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .usernamePrompt {
+    white-space: pre-wrap;
+    font-family: sans-serif;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 650;
+    padding: 15px;
+    color: #e89820;
+    word-wrap: break-word;
+  }
+  .welcomePrompt {
+    white-space: pre-wrap;
+    font-family: sans-serif;
+    margin: auto;
+    width: 67.3%;
+    font-size: 20px;
+    font-weight: 650;
+    padding: 15px;
+    color: #e89820;
+    word-wrap: break-word;
+  }
+  input[type="button"] {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    background: #919090;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px 5px;
+  }
+  input#admin_button {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    background: #e89820;
+    border: 1px solid black;
+    border-radius: 0px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  input#back_button {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    background: #e89820;
+    border: 1px solid black;
+    border-radius: 0px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  div#messages>img {
+    padding: 1px;
+    border: 1px solid #fafafa;
+    margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+  }
+  div#messages {
+    width: 100%;
+  }
+  div#messages>div {
+    white-space: pre-wrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+  div#messages>div:last-child {
+    margin-bottom: 9px;
+  }
+  div#messages>div:nth-child(even) {
+    background: #e8e8e8;
+  }
+  div#messages>div:nth-child(odd) {
+    background: #d9d9d9;
+  }
+  input#msgBox {
+    width: calc(100% - 22px);
+    display: block;
+    padding: 10px;
+    border: 2px solid #e89820;
+  }
+  /* inputs is main landing v1 where text fields are side by side userid password for create user*/
+  .inputs {
+    width: calc(100%);
+    display: flex;
+    margin-bottom: 25px;
+  }
+  input#usernameInput {
+    width: calc(50%);
+    padding: 10px;
+    border: 2px solid #e89820;
+    border-radius: 5px;
+  }
+  input#passwordInput {
+    width: calc(50%);
+    padding: 10px;
+    border: 2px solid #e89820;
+    border-radius: 5px;
+  }
+  .usernameConstraints {
+    white-space: pre-wrap;
+    margin: auto;
+    width: 40%;
+    font-family: sans-serif;
+    font-weight: 300;
+    padding: 15px;
+    font-size: 15px;
+    color: #e89820;
+    margin-top: -20px;
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+  .chatServerTips {
+    white-space: pre-wrap;
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #f0f0f0;
+    margin-left: -15px;
+    padding: 15px;
+    width: 100%;
+    word-wrap: break-word;
+  }
+  /* FOLLOWING ARE ALL CHAT MESSAGE COLOURING BASED ON MESSAGE CONTEXT
+    Session Data = previous stored session of that user loaded from db
+    Message Data = messages from current Session
+    Gif data = gif from current session (session gifs are combined with public message colouring)
+  */
+  .privateOwnSessionData {
+    color: #a84d6d;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .privateSessionData {
+    color: #7b384f;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .userOwnSessionData {
+    color: #9144ad;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .userSessionData {
+    color: #69387b;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .usersOwnMessage {
+    color: #2f94e0;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .usersPrivateMessage {
+    color: #ba362d;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .usersOwnPrivateMessage {
+    color: #801a13;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .usersGif {
+    color: #269e46;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+  .usersOwnGif {
+    color: #1d6e45;
+    background: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #fafafa;
+  }
+}

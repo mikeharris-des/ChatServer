@@ -1,0 +1,56 @@
+<!-- ADMIN LANDING PAGE / DISPLAY ADMIN LEVEL DATA ON APPLICATION FOR ADMIN AUTHENTICATION ONLY -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/clientControl.js"></script>
+
+	</head>
+    <body>
+        <div class="title">USER DATA</div>
+        <br>
+        <table class="dataTable">
+            <tr>
+                <th>USERID</th>
+                <th>PASSWORD</th>
+                <th>PRIVILEDGE</th>
+            </tr>
+            {{#each userData}}
+              <tr>
+                  <td>{{this.userid}}</td>
+                  <td>{{this.password}}</td>
+                  <td>{{this.role}}</td>
+              </tr>
+            {{/each}}
+        </table>
+        <br>
+        <div class="title">MESSAGE HISTORY</div>
+        <br>
+        <table class="dataTable">
+            <tr>
+                <th>MID</th>
+                <th>USERID</th>
+                <th>MSG BODY</th>
+                <th>TYPE</th>
+                <th>ACCESS</th>
+            </tr>
+            {{#each messageData}}
+              <tr>
+                  <td>{{this.mid}}</td>
+                  <td>{{this.userid}}</td>
+                  <td>{{this.msg}}</td>
+                  <td>{{this.type}}</td>
+                  <td>{{this.access}}</td>
+              </tr>
+            {{/each}}
+        </table>
+        <br>
+        <br>
+        <input type='button' id="back_button" value='Back'>
+    </body>
+</html>

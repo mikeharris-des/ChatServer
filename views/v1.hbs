@@ -1,0 +1,34 @@
+<!-- SIGNIN LANDING PAGE / APPLICATION MAIN LANDING PAGE - ALL REDIRECTS TO THIS PAGE -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/clientControl.js"></script>
+
+	</head>
+    <body>
+        <div class = "title">CHAT SERVER</div>
+
+        <div class='welcomePrompt'>LOGIN OR CREATE A USER TO ENTER CHAT SERVER</div>
+        <div class="inputs">
+            <input type='text' placeholder='Make a username to begin' id='usernameInput'>
+            <input type='text' placeholder='Make a password to begin' id='passwordInput'> <br>
+        </div>
+
+        <input type='button' id="connect_as" value='Connect As'>
+        <input type='button' id="existing_as" value='Sign In'>
+
+        <div class ='usernameConstraints'>
+            <strong>USERNAME CONSTRAINTS</strong>
+            * must start with a letter
+            * have only letters and numbers
+            * must be unique
+            * must be under 50 characters
+        </div>
+    </body>
+</html>
