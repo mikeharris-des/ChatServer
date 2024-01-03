@@ -5,19 +5,20 @@ NAME:
 CHATSERVER APPLICATION:
 
     This application is a chat server designed to handle user authentication followed by real-time communication 
-    between connected clients. Clients can send messages and GIFs, to the server, which stores the message data 
-    in a sqlite database before broadcasting the message to the directed users. 
+    between connected clients. Clients can send messages and GIFs to the server, where the message data is saved
+    to an sqlite database, embeded with a unique message id, then it is broadcasted to the directed users. 
     
-    User Session data saved and retrieved when a user exits and logs back in to the application.
+    User Session data is saved and retrieved when a user exits and logs back in to the application.
 
     Real-time communication is implemented with Socket IO framework.
     Authentication is handled mainly through the Express middleware framework.
+    GIF api functionality sourced by GIPHY
     Browser pages rendered as a template through Handlebars framework.
 
 TESTED:
     on MacOS Sonoma 14.1
     on Ubuntu 22.04
-    on latest version of Google Chrome (though any browser should work)
+    on latest version of Google Chrome (any browser should work)
 
 ACKNOWLEDGEMENTS:
 	I would like to express my gratitude to Louis D. Nel for providing the initial outline and specifications for several assignments during 
@@ -171,15 +172,29 @@ favicon.ico - image for tab display CU logo (go Ravens)
 
 CLIENT SIDE
 /client
-    /images/errorGifImg.jpg // default gif(img) if api server response fails or no internet
+    /images/errorGifImg.jpg 
+	default gif(img) if api server response fails (beta key expired or issues) or no internet
 
     /js
         activeUser.js - activeUser in Public Chat Server
             all implementation to support an active user participating in chat server including user socket events are in this file 
 
         api.js - all client side api request response. 
-	it can be redone to be done as a single socket io event staying on the server side after passing the client gif query then 
-	the logging and broadcasting but I wanted to have a working example of a full client-server api request 
+		EVENT FLOW for gif request -> client sees gif:
+
+		[clientControl]    [api.js]    [server]     [routes/serverApi]     [GIPHY]
+		LCTRL+SPACE    ->  gifApi() -> GET /gif* ->  fetch(gif*)        -> GIPHY api request ->
+		(+ gif query in text field)
+		
+		   [GIPHY]                [routes/serverApi]          [api.js]
+		-> GIPHY  response    ->  gifData response as json -> parse response + emit socketIO event to server (displayGifs)->
+		
+		
+		   [server]                [routes/serverMessageData]                   [server] 
+		-> route to database   ->  sqlite insert+get mid+return GIF data obj -> broadcast socketIO event to clients w. GIF data ->
+		
+		  [activeUser]
+		-> browser display gifs to client (serverDisplayGifs)
 
         clientControl.js - all handling of when user navigates to main landing page /chatClient.html
             includes event listeners on button and key events at the bottom
