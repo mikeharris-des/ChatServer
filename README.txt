@@ -1,57 +1,68 @@
 NAME:
 	MICHAEL ANASTASAKIS
-	101047439
-	COMP2406-A
+	mikeharris.des@gmail.com
 
-PURPOSE:
-	COMP 2406 - Fall 2023 FINAL PROJECT
+CHATSERVER APPLICATION:
 
-    The application is a chat server designed to handle real-time communication between connected clients.
-    Clients can send messages, including images and GIFs, to the server, which stores the chat data in a database.
-    The server also manages temporary logs of messages for clients that have disconnected and aims to update the
-    main chat database when clients reconnect. The server utilizes various events, such as 'storeClientData' and
-    'waitForClientsResponse,' to coordinate actions between the server and clients, ensuring data consistency and
-    integrity. Additionally, there are features to handle user exits, such as storing local message history
-    and updating user visibility in the chat. The application focuses on maintaining a seamless and persistent
-    chat experience for users.
+    This application is a chat server designed to handle user authentication followed by real-time communication 
+    between connected clients. Clients can send messages and GIFs, to the server, which stores the message data 
+    in a sqlite database before broadcasting the message to the directed users. 
+    
+    User Session data saved and retrieved when a user exits and logs back in to the application.
+
+    Real-time communication is implemented with Socket IO framework.
+    Authentication is handled mainly through the Express middleware framework.
+    Browser pages rendered as a template through Handlebars framework.
 
 TESTED:
-	on MacOS Sonoma 14.1
+    on MacOS Sonoma 14.1
     on Ubuntu 22.04
-    on Microsoft Edge Version 120.0.2210.61 (Official build) (x86_64) 
-    on latest version of Google Chrome
+    on latest version of Google Chrome (though any browser should work)
+
+ACKNOWLEDGEMENTS:
+	I would like to express my gratitude to Louis D. Nel for providing the initial outline and specifications for several assignments during 
+	my time at Carleton University. These assignments served as the foundation for the project presented here, showcasing the skills and 
+	knowledge gained under Professor Nel's guidance.
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSTALL INSTRUCTIONS:
 
-	* in terminal enter following if npm is not installed (npm -version) in project directory and validate prompts if necessary:
+	* in terminal enter the following if npm is not installed (npm -version) in project directory and validate prompts if necessary:
 
         % npm install 
 
-    * install sqlite for your system
+    * Have sqlite installed (sqlite3 -version) for your system (required for application database)
+	
         https://www.sqlite.org/download.html
 
+	LINUX
+	wget https://www.sqlite.org/2022/sqlite-tools-linux-x64-3440200.zip
 
-    * in directory containing [ PATH -> …/2406FP/ ] server.js ensure the following files are present:
+
+    * in directory containing [ PATH -> …/chatserver/ ] server.js ensure the following files are present:
 
         …/package-lock.json
         …/package.json
 
 
-    * in directory containing server.js [ PATH -> …/2406FP/ ] enter in terminal to download required npm modules and validate prompts if necessary:
+    * in directory containing server.js [ PATH -> …/chatserver/ ] enter in terminal to download required npm modules and validate prompts if necessary:
 
         % npm install
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 LAUNCH INSTRUCTIONS:
-	all programs are within this folder ( PATH -> …/2406FP/ ) can be accessed with the following paths:
+	all programs are within this folder ( PATH -> …/chatserver/ ) can be accessed with the following paths:
 
 
-	server.js :  	 [ PATH -> …/2406FP/ ]
+	server.js :  	 [ PATH -> …/chatserver/ ]
 
     ensure the node_modules folder is present upon completion of INSTALL INSTRUCTIONS, otherwise see INSTALL INSTRUCTIONS ^^
 
 
 	open command line interface, type and enter >> node server.js to launch js program
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 TEST INSTRUCTIONS:
 
@@ -78,29 +89,18 @@ TEST INSTRUCTIONS:
                 *to see admin privilege data, be logged in as an admin in chat server and click 'USERS'
                  button at the bottom, this will also log you out.
 
-                 here you can see all userids and their passwords and some* message history. Not all messages
-                 store when you navigate.
+                 here you can see all userids and their passwords and message history. Note messages will store even on clear message event
 
                 LCTL+SPACE to enter a gif
                 'userid > message' to send private message
-                'userid1, userid2, ... useridN > message' to send private message to N users
+                'userid1, userid2, ... useridN > message' to send private message to N users (comma separated & space not needed)
 
-                clearing messages (CLEAR MESSAGES button) only clears the page on this session, it will not
-                clear previous session data when loading again
+                clearing messages (CLEAR MESSAGES button) only clears the history session for this user, it will not
+                clear previous session data for other users
 
-			*You may terminate the server/program with the following command: CNTL-C at anytime
+		*You may terminate the server/program with the following command: CNTL-C at anytime
 
-ISSUES:
-        *most issues are how the visible message data is stored for each user - see routes/serverMessageData for a headache
-
-        *other user data is not stored only messages you send excluding gif data.
-
-        *repeat messages are stored in chat_data db and causes buggy fetches for session data when loading again
-
-        *chrome browser is giving issues with styling please use Microsoft Outlook
-        apparently it has no issue with the styling, i am taking fault if its not
-        a virtual memory issue it is an error somewhere in my code.
-
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 FILES:
 
@@ -119,64 +119,71 @@ server.js - main page for everything server including main implementation of ser
 /views - handlebar html pages
     v1.hbs // main landing page only includes src = clientControl.js
     v2.hbs // chat server page
-    v3.hbs // admin page where userdata is displayed
+    v3.hbs // admin page where all userdata is displayed
     v4.hbs // non authorized access to admin page
-    v5.hbs // was supposed to handle multiple users trying to log in, when server disconnects and connects causes undefined response
 
 /data - sqlite database
     db_ChatServer.db // data base storing server data
 
     SCHEMA
 
-    *stores user authentication data
-    CREATE TABLE users (userid TEXT PRIMARY KEY, password TEXT, role text);
+* table of usernames, passwords, and application role privilidge 'guest' or 'admin'
+	
+	CREATE TABLE users (userid TEXT PRIMARY KEY, password TEXT, role text);
 
-    *stores all chat data
-    CREATE TABLE chat_data (
-        mid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        userid TEXT NOT NULL,
-        msg TEXT NOT NULL,
-        type TEXT NOT NULL,
-        access TEXT NOT NULL,
-        UNIQUE (userid, mid)
-    );
+* primary message table with usernames, message sent by that user, the type of msg sent, the visibility off\ that message to other users
+	
+	CREATE TABLE chat_data (
+		mid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    		userid TEXT NOT NULL,
+    		msg TEXT NOT NULL,
+    		type TEXT NOT NULL,
+    		access TEXT NOT NULL,
+    		UNIQUE (userid, mid)
+	);
 
-    *stores all chat data visible to one user
-    CREATE TABLE user_visibility (
-        vid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        mid INTEGER NOT NULL,
-        userid TEXT NOT NULL,
-        FOREIGN KEY (mid) REFERENCES chat_data(mid) ON DELETE CASCADE,
-        FOREIGN KEY (userid) REFERENCES chat_data(userid) ON DELETE CASCADE
-    );
+* table showing which messages are visible to which users.
 
-favicon.ico - image for tab display cu logo
+	CREATE TABLE user_visibility (
+    		vid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    		mid INTEGER NOT NULL,
+    		userid TEXT NOT NULL,
+    		FOREIGN KEY (mid) REFERENCES chat_data(mid) ON DELETE CASCADE,
+    		FOREIGN KEY (userid) REFERENCES chat_data(userid) ON DELETE CASCADE
+	);
+	CREATE UNIQUE INDEX unique_mid_userid ON user_visibility (mid, userid);
+
+favicon.ico - image for tab display CU logo (go Ravens)
 
 /styles
     style.css page
 
 CLIENT SIDE
 /client
-    /images/errorGifImg.jpg // standard gif(img) if api server response fails or no internet
+    /images/errorGifImg.jpg // default gif(img) if api server response fails or no internet
 
     /js
         activeUser.js - activeUser in Public Chat Server
-            all implementation of code and socket events for a user in the chat server page and authenticated
+            all implementation to support an active user participating in chat server including user socket events are in this file 
 
-        api.js - all client side api request response
+        api.js - all client side api request response. 
+	it can be redone to be done as a single socket io event staying on the server side after passing the client gif query then 
+	the logging and broadcasting but I wanted to have a working example of a full client-server api request 
 
-        clientControl.js - all handling of when user navigates to main landing page /chatServer
+        clientControl.js - all handling of when user navigates to main landing page /chatClient.html
             includes event listeners on button and key events at the bottom
 
-        waitingClient.js - client is not an active user but is authenticated and being loaded with data from the chat server
-            here socket.io is initialized
+        waitingClient.js - client is not an active user but is authenticated and being loaded with data from the chat server including
+	previous session data and is sharing user data before being able to participate in chat server
+            *here socket.io is initialized 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 VIDEOLINK:
-    COMP 2406 - Fall 2023 FINAL PROJECT
+    COMP 2406 - Fall 2023 FINAL PROJECT -> before it was finished with several bugs
     https://youtu.be/wtcX7uteig8
 
 
 ADDITIONAL NOTES:
 
-    not complete
+

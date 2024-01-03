@@ -382,4 +382,8 @@ console.log(PRINT_BREAK_S)
 console.log(`Server Running at port ${PORT}  CNTL-C to quit`)
 console.log(`To Test:`)
 console.log(`Open several browsers to: http://localhost:${PORT}/chatClient.html`)
+console.log(`To Quit:`)
+console.log(`CTRL+C at any time`)
+console.log(`\nnote: storing of user session occurs only on window unload event
+    while the server application is running`)
 console.log(PRINT_BREAK_E)
