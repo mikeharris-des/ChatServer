@@ -91,7 +91,8 @@ TEST INSTRUCTIONS:
 
                  here you can see all userids and their passwords and message history. Note messages will store even on clear message event
 
-                LCTL+SPACE to enter a gif
+                *LCTL+SPACE to enter a gif
+
                 'userid > message' to send private message
                 'userid1, userid2, ... useridN > message' to send private message to N users (comma separated & space not needed)
 
@@ -99,7 +100,12 @@ TEST INSTRUCTIONS:
                 clear previous session data for other users
 
 		*You may terminate the server/program with the following command: CNTL-C at anytime
-
+		
+            *HOTKEYS
+		ENTER on main landing (/chatClient) invokes create user action -> will attempt to create a username with the data in the text 
+		fields
+		ENTER when participating in chat (/chatServer) will invoke message sending -> based on whatever text is in text field
+		LCTL+SPACE to enter a gif
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 FILES:
