@@ -4,6 +4,8 @@ NAME:
 
 CHATSERVER APPLICATION:
 
+    VIDEO DEMONSTRATION: https://youtu.be/vco8zcM7i-Q
+
     This application is a chat server designed to handle user authentication followed by real-time 
     communication between connected clients. Clients can send messages and GIFs to the server, where the 
     message data is saved to an sqlite database, embeded with a unique message id, then it is broadcasted to 
@@ -19,7 +21,7 @@ TESTED:
 
 ACKNOWLEDGEMENTS:
     I would like to express my gratitude to Louis D. Nel for providing the initial outline and specifications 
-    for several assignments during my time at Carleton University. These assignments served as the foundation
+    for several assignments during my time at University. These assignments served as the foundation
     for the project presented here, showcasing the skills and knowledge gained under Professor Nel's guidance.
 ---------------------------------------------------------------------------------------------------------------
 
@@ -225,8 +227,6 @@ CLIENT SIDE
 ---------------------------------------------------------------------------------------------------------------
 
 VIDEOLINK:
-    COMP 2406 - Fall 2023 FINAL PROJECT -> before I included embeded message ids so user session data did not
-reliably store and there was issues with styling.
-    https://youtu.be/wtcX7uteig8
+    https://youtu.be/vco8zcM7i-Q
 
 
