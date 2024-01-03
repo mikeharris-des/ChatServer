@@ -52,30 +52,33 @@ INSTALL INSTRUCTIONS:
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 LAUNCH INSTRUCTIONS:
-	all programs are within this folder ( PATH -> …/chatserver/ ) can be accessed with the following paths:
+
+    * all programs are within this folder ( PATH -> …/chatserver/ ) can be accessed with the following paths:
 
 
 	server.js :  	 [ PATH -> …/chatserver/ ]
 
-    ensure the node_modules folder is present upon completion of INSTALL INSTRUCTIONS, otherwise see INSTALL INSTRUCTIONS ^^
+    * ensure the node_modules folder is present upon completion of INSTALL INSTRUCTIONS, otherwise see INSTALL INSTRUCTIONS ^^
 
 
-	open command line interface, type and enter >> node server.js to launch js program
-
+    * open command line interface, type and enter the following to launch js program:
+	
+	node server.js 
+	
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 TEST INSTRUCTIONS:
 
-            *Upon executing program the following will display to terminal:
+            * Upon executing program the following will display to terminal:
 
                 Server Running at port 3000  CNTL-C to quit
                 To Test:
                 Open several browsers to: http://localhost:3000/chatClient.html
 
-            *please only copy, paste and the one url ‘ http://localhost:3000/chatClient.html ‘ into a chrome browser
+            * please only copy, paste and the one url ‘ http://localhost:3000/chatClient.html ‘ into a chrome browser
                 there is handling implemented for entering other urls navigable for this application
 
-            *Accessing the Chat Interface:
+            * Accessing the Chat Interface:
 
                 navigating to http://localhost:3000/chatClient.html to access the chat interface.
                 Multiple clients can connect to the server using different browser tabs or windows.
@@ -101,9 +104,11 @@ TEST INSTRUCTIONS:
 
 		*You may terminate the server/program with the following command: CNTL-C at anytime
 		
-            *HOTKEYS
+            * HOTKEYS
+
 		ENTER on main landing (/chatClient) invokes create user action -> will attempt to create a username with the data in the text 
 		fields
+
 		ENTER when participating in chat (/chatServer) will invoke message sending -> based on whatever text is in text field
 		LCTL+SPACE to enter a gif
 --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -137,7 +142,7 @@ server.js - main page for everything server including main implementation of ser
 	
 	CREATE TABLE users (userid TEXT PRIMARY KEY, password TEXT, role text);
 
-* primary message table with usernames, message sent by that user, the type of msg sent, the visibility off\ that message to other users
+* primary message table with usernames, message sent by that user, the type of msg sent, the visibility of that message to other users
 	
 	CREATE TABLE chat_data (
 		mid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -186,10 +191,7 @@ CLIENT SIDE
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 VIDEOLINK:
-    COMP 2406 - Fall 2023 FINAL PROJECT -> before it was finished with several bugs
+    COMP 2406 - Fall 2023 FINAL PROJECT -> before I included embeded message ids so user session data did not reliably store and there was issues with styling.
     https://youtu.be/wtcX7uteig8
-
-
-ADDITIONAL NOTES:
 
 
