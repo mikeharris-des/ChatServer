@@ -213,7 +213,6 @@ io.on('connection', function(socket) {
         socket.on('initClientResponse',async function(clientUsername){
             console.log(`   ... new waiting client: ${clientUsername}`)
             allUsersServer[socket.id] = clientUsername; // store active users in global table
-            // activeUserCount++; // increment number of users
 
             // broadcast to all users in server a new user entered and they can communicate with them (private communication enabled)
             socket.broadcast.emit('updateAllUsersClient',socket.id,clientUsername);
@@ -233,7 +232,6 @@ io.on('connection', function(socket) {
             }
             activeUserCount++; // increment number of users
             console.log(`   ... client ${clientUsername} has successfully connected to CHAT SERVER`)
-            //socket.emit('serverSays', '\nwelcome to the chat server',clientUsername)
             console.log('\n* UPDATED SERVER - current active user count: ' + activeUserCount )
             console.log('                 - current active users are : ' + Object.values(allUsersServer) );
             console.log(PRINT_BREAK_E);
