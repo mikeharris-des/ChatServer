@@ -151,7 +151,7 @@ app.use(express.static(__dirname + '/client')); // static server -> client data
 app.get('/gif*', (req, res) => {
     if(S_DEBUG)console.log('\nGIF request: ' + req.url);
     routesAPI.getGIF(req, res); // const bad_gif = {title: 'BADRESPONSE', url: ''} // if no wifi or api server access
-                        // response.gifData: bad_gifData
+                        
 });
 
 // main landing
