@@ -1,12 +1,26 @@
-// client API request response here
 /*
-file handles client side interaction in chat server to request GIFs
-    *   Valid requests sent to server.js
-    *   server routes file serverAPI.js makes fetch to retrieve GIF data, returns response with gif data or static default image on error
-        (note i made the api implementation without a database and before the socket implementation, this step and next step is large redundancy
-        it can be redone to be done as a single socket event staying on the server side for the logging and broadcasting - must be redone for high traffic application)
-    *   this socket(active user) emits socket event back to server for logging the gif data then server broadcasts to all users with mid fro db to update the chat application's
-        interface with gifData obj containing top gif hits for user's gifName
+        api.js - all client side api request response. 
+            EVENT FLOW for gif request -> client sees gif:
+
+            [clientControl]    [api.js]    [server]     [routes/serverApi]     [GIPHY]
+            LCTRL+SPACE    ->  gifApi() -> GET /gif* ->  fetch(gif*)        -> GIPHY api request ->
+            (+ gif query in text field)
+		
+            [GIPHY]               [routes/serverApi]                                 
+            -> GIPHY  response -> parse & validate gifData response then json again -> 
+
+            [api.js]							       [server]    
+            -> parse response + emit socketIO event to server (displayGifs) -> route to database -> 
+		
+            [routes/serverMessageData]                     [server] 
+            ->  sqlite insert+get mid+return GIF data obj -> broadcast socketIO event to clients w. GIF data ->
+		
+            [activeUser]
+            -> browser display gifs to client
+
+            NOTE: the implementation is set up here for the api response coming directly back to client so they may choose a specific gif then that gif is 
+                  routed as a message. The gif request here needs to be logged as a message with the server and I wanted to have a working rest API implementation 
+                  for expanding on a possible GIF selection, so I chose not to use socketIO for the client-server communication. 
 */
 const DEBUG_cAPI = 0;
 
