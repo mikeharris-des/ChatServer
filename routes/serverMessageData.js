@@ -4,17 +4,12 @@
 const url = require('url')
 const fs = require('fs')
 const sqlite3 = require('sqlite3').verbose() //verbose provides more detailed stack trace
-// const db = new sqlite3.Database('data/db_1200iRealSongs')
 const db = new sqlite3.Database('data/db_ChatServer.db')
 
 
 /*
 
-schema altered:
-CREATE UNIQUE INDEX unique_mid_userid ON user_visibility (mid, userid);
-https://www.w3schools.com/sql/sql_ref_create_unique_index.asp
-
-TO RESET AUTO INCREMENT primary keys and delete all current messages FOR EACH TABLE
+TO RESET AUTO INCREMENT primary keys and delete all current messages FOR ALL TABLES do the following 4 DELETES in sqlite for the db_ChatServer.db:
 delete from chat_data;
 delete from sqlite_sequence where name='chat_data';
 
@@ -45,6 +40,7 @@ CREATE TABLE user_visibility (
 );
 CREATE UNIQUE INDEX unique_mid_userid ON user_visibility (mid, userid);
 
+https://www.w3schools.com/sql/sql_ref_create_unique_index.asp
 */
 
 const UPLOAD_LOG_SIZE = 1;      // number of user messages before it is uploaded (buffer flush)
@@ -195,7 +191,7 @@ exports.evaluateMessage = async function(clientSender,message,allUsersServer) {
                     const rSQL = `INSERT INTO chat_data (userid, msg, type, access) VALUES ('${clientSender}', '${directMessage}', '${MSG}', '${PRIVATE}')`;
                     const rMID = await runInsertQuery(rSQL)
                     if(SMD_DEBUG)console.log('\nrSQL: ' + rSQL + ' | rMID: ' + rMID);
-                    // const rmsgData = {mid: rMID, sender: clientSender, messageBody: directMessage}
+                    
                     recipientData = {mid: rMID, sender: clientSender, messageBody: directMessage};
                 } catch (error) {
                     console.error('ERROR runInsertQuery rMID :', error);
