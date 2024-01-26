@@ -1,27 +1,32 @@
-/*
-        api.js - all client side api request response. 
-            EVENT FLOW for gif request -> client sees gif:
+/**************************************************************************************************************************************
 
-            [clientControl]    [api.js]    [server]     [routes/serverApi]     [GIPHY]
-            LCTRL+SPACE    ->  gifApi() -> GET /gif* ->  fetch(gif*)        -> GIPHY api request ->
-            (+ gif query in text field)
-		
-            [GIPHY]               [routes/serverApi]                                 
-            -> GIPHY  response -> parse & validate gifData response then json again -> 
+{ api client side }
 
-            [api.js]							       [server]    
-            -> parse response + emit socketIO event to server (displayGifs) -> route to database -> 
-		
-            [routes/serverMessageData]                     [server] 
-            ->  sqlite insert+get mid+return GIF data obj -> broadcast socketIO event to clients w. GIF data ->
-		
-            [activeUser]
-            -> browser display gifs to client
+api.js - all client side api request response. 
+    EVENT FLOW for gif request -> client sees gif:
 
-            NOTE: the implementation is set up here for the api response coming directly back to client so they may choose a specific gif then that gif is 
-                  routed as a message. The gif request here needs to be logged as a message with the server and I wanted to have a working rest API implementation 
-                  for expanding on a possible GIF selection, so I chose not to use socketIO for the client-server communication. 
-*/
+    [clientControl]    [api.js]    [server]     [routes/serverApi]     [GIPHY]
+    LCTRL+SPACE    ->  gifApi() -> GET /gif* ->  fetch(gif*)        -> GIPHY api request ->
+    (+ gif query in text field)
+	
+    [GIPHY]               [routes/serverApi]                                 
+    -> GIPHY  response -> parse & validate gifData response then json again -> 
+
+    [api.js]							       [server]    
+    -> parse response + emit socketIO event to server (displayGifs) -> route to database -> 
+	
+    [routes/serverMessageData]                     [server] 
+    ->  sqlite insert+get mid+return GIF data obj -> broadcast socketIO event to clients w. GIF data ->
+	
+    [activeUser]
+    -> browser display gifs to client
+
+    NOTE: the implementation is set up here for the api response coming directly back to client so they may choose a specific gif then that gif is 
+	  routed as a message. The gif request here needs to be logged as a message with the server and I wanted to have a working rest API implementation 
+	  for expanding on a possible GIF selection, so I chose not to use socketIO for the client-server communication. 
+
+***************************************************************************************************************************************/
+
 const DEBUG_cAPI = 0;
 
 // on valid keydown event in chat server, user is prompted to enter gif query for the api to return hits from that query
