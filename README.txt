@@ -78,7 +78,8 @@ TEST INSTRUCTIONS:
         To Test:
         Open several browsers to: http://localhost:3000/chatClient.html
 
-    * please only copy, paste and the one url ‘ http://localhost:3000/chatClient.html ‘ into a chrome browser        there is handling implemented for entering other urls navigable for this application
+    * please only copy, paste and the one url ‘ http://localhost:3000/chatClient.html ‘ into a chrome browser        
+      there is handling implemented for entering other urls navigable for this application
 
     * Accessing the Chat Interface:
 
@@ -223,6 +224,17 @@ CLIENT SIDE
     		FOREIGN KEY (userid) REFERENCES chat_data(userid) ON DELETE CASCADE
 	);
 	CREATE UNIQUE INDEX unique_mid_userid ON user_visibility (mid, userid);
+
+
+
+        TO RESET AUTO INCREMENT primary keys and delete all current message history logged in database FOR ALL TABLES do the following 4 DELETES in 
+        sqlite for the db_ChatServer.db:
+
+                delete from chat_data;
+                delete from sqlite_sequence where name='chat_data';
+
+                delete from user_visibility;
+                delete from sqlite_sequence where name='user_visibility';
 
 ---------------------------------------------------------------------------------------------------------------
 
