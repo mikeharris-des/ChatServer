@@ -55,23 +55,26 @@
   .usernamePrompt {
     white-space: pre-wrap;
     font-family: sans-serif;
-    width: 100%;
+    margin: auto;
+    width: 50%;
     font-size: 20px;
     font-weight: 650;
     padding: 15px;
     color: #e89820;
     word-wrap: break-word;
+    text-align: center;
   }
   .welcomePrompt {
     white-space: pre-wrap;
     font-family: sans-serif;
     margin: auto;
-    width: 67.3%;
+    width: 50%;
     font-size: 20px;
     font-weight: 650;
     padding: 15px;
     color: #e89820;
     word-wrap: break-word;
+    text-align: center;
   }
   input[type="button"] {
     display: block;
@@ -165,29 +168,38 @@
     border: 2px solid #e89820;
     border-radius: 5px;
   }
+
+  .underTextContainer {
+      margin: auto;
+      width: 50%;
+  }
   .usernameConstraints {
-    white-space: pre-wrap;
-    margin: auto;
-    width: 40%;
-    font-family: sans-serif;
-    font-weight: 300;
-    padding: 15px;
-    font-size: 15px;
-    color: #e89820;
-    margin-top: -20px;
-    word-wrap: break-word;
-    line-height: 1.5;
+      margin: auto;
+      width: 50%;
+      font-family: sans-serif;
+      font-weight: 300;
+      padding: 15px;
+      font-size: 15px;
+      color: #e89820;
+      margin-top: -20px;
+      margin-left: calc(50% - 150px);
+      line-height: 1.5;
+      white-space: pre;
   }
   .chatServerTips {
-    white-space: pre-wrap;
-    font-family: sans-serif;
     font-size: 12px;
     color: #f0f0f0;
-    margin-left: -15px;
-    padding: 15px;
+    margin: auto;
+    margin-bottom: 100px;
     width: 100%;
-    word-wrap: break-word;
+    text-align: left;
+    font-family: sans-serif;
+    margin-left: calc(0%);
+    font-weight: 300;
+    line-height: 1.5;
+    white-space: normal;
   }
+
   /* FOLLOWING ARE ALL CHAT MESSAGE COLOURING BASED ON MESSAGE CONTEXT
     Session Data = previous stored session of that user loaded from db
     Message Data = messages from current Session

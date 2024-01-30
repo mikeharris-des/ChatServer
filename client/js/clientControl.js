@@ -17,7 +17,6 @@ const CC_DEBUG = 0;
 const CHATSERVER_URL = 'http://localhost:3000/chatServer'
 const ADMIN_URL = 'http://localhost:3000/admin'
 let thisUser; // a variable to control if the client rendering this file has an associated/registered/authenticated username
-// let auth;
 
 // any window change (refresh or navigate to) with this src file the following runs
 window.onload = (event) => {
